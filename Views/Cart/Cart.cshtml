@@ -1,0 +1,45 @@
+@model IEnumerable<CartEntryGiftItemDetail>
+    @inject SignInManager<IdentityUser> SignInManager
+    <html>
+        <body>
+            <div>
+            @if(Model==null || Model.Count()==0){
+                <div>
+                <h1>NO items present in the cart....</h1>
+                <h2><a href="/Gift/GetGiftItems">Please add items </a></h2>
+                </div>
+            }else{ var username="";
+<div class="col" >
+    @foreach (var item in Model)
+    { var photoPath = "~/images/" + (item.Photo ?? "noimage"); 
+        username=item.UserId;
+        <div class="col-sm-5">
+           
+       <div class="card mb-3 shadow-sm">
+        <div class="row">
+            <div class="col-sm-5">
+        <img src="@photoPath" asp-append-version="true" class="card-image-top" style="height: 200px; width: 100%; display: block; "/>
+       </div>
+        <div class="col-sm-7">
+       <div class="card-body">
+        
+       
+        <h1 class="card-title">@item.GiftItemName</h1>
+    
+        <h2 class="card-text">Price : @item.Price</h2>
+        <h2 class="card-text">Units : @item.Units</h2>
+        </div>
+        </div> 
+        </div>
+        </div>
+        </div>
+    }<div>
+ <form method="post">
+      <button  type="submit" class="btn-normal card-text" asp-action="PlaceOrder"
+        asp-controller="Cart" asp-route-userName=@username>Place Order</button>
+</form>
+</div>
+</div>}
+            </div>
+        </body>
+    </html>

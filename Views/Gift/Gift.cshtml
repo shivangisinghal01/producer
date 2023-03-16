@@ -1,0 +1,45 @@
+@model IEnumerable<GiftItem>
+    @inject SignInManager<IdentityUser> SignInManager
+    <html>
+        <body>
+<div class="row" >
+  
+    @foreach (var item in Model)
+    { var photoPath = "~/images/" + (item.Photo ?? "noimage"); 
+        
+        <div class="col-sm-3">
+           
+       <div class="card mb-3 shadow-sm">
+        <img src="@photoPath" asp-append-version="true" class="card-image-top" style="height: 200px; width: 100%; display: block; "/>
+       <div class="card-body">
+        
+        <h1 class="card-title">@item.Name</h1>
+        <h2 class="card-text">@item.InStock</h2>
+         <form >
+        <button  type="submit" class="btn-normal card-text" asp-action='GetGiftItemDetail'
+        asp-controller='Gift' asp-route-id=@item.Id  >Details</button>
+       
+       @if(SignInManager.IsSignedIn(User) && User.IsInRole("Admin")){
+<button  type="submit" class="btn-normal card-text" asp-action='UpdateGiftItem'
+        asp-controller='Gift' asp-route-id="@item.Id">Update</button>
+
+        <button formmethod="post" type="submit card-text" class="btn-normal" 
+        onclick="return confirm('Are you sure you want to delete user : @item.Name')" asp-action='DeleteGiftItem'
+        asp-controller='Gift' asp-route-id="@item.Id">Delete</button>
+       }
+        
+</form>
+        </div> 
+        </div>
+        </div>
+        
+    }
+
+</div>
+
+<button type="button" >
+    <a href="/Gift/Create">Create</a>
+</button>
+        </body>
+    </html>
+

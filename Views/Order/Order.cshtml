@@ -1,0 +1,42 @@
+@model IEnumerable<Order>
+    @inject SignInManager<IdentityUser> SignInManager
+    <html>
+        <body>
+            <div>
+            @if(Model==null || Model.Count()==0){
+                <div>
+                <h1>No Orders</h1>
+                <h2><a href="/Gift/GetGiftItems">Continue Shopping</a></h2>
+                </div>
+            }else{ var username="";
+<div class="col" >
+    @foreach (var item in Model)
+    {
+        username=item.UserId;
+        <div class="col-sm-9">
+           
+       <div class="card mb-3 shadow-sm">
+        <div class="row">
+            
+        <div class="col-sm-7">
+       <div class="card-body">
+        <h1 class="card-title">Order ID : @item.OrderID</h1>
+        <h2 class="card-text">Total Amount : @item.TotalAmount</h2>
+        <h2 class="card-text">Placed On : @item.BusinessDay</h2>
+
+        <h3 class="card-text">Total Items : @item.NumberOfItemsOrder</h3>
+       
+        <form>
+             <button  type="submit" class="btn-normal card-text" asp-action="Details"
+        asp-controller="Order" asp-route-id=@item.OrderID>Order Details</button>
+        </form>
+      
+        </div>
+        </div> 
+        </div>
+        </div>
+        </div>
+    }
+</div>}
+        </body>
+    </html>

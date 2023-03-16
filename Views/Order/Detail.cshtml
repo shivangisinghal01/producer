@@ -1,0 +1,11 @@
+@model IEnumerable<OrderDetailViewModel>
+    <html>
+        <body>
+            
+@foreach(var item in Model){
+        <h1>Gift Item : @item.GiftItemName</h1>
+        <h2>Units : @item.Units</h2>
+        <h3>Price : @item.CostPerUnit</h3>
+        <br/><hr/>
+    }</body></html>
+    

@@ -1,0 +1,47 @@
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject IConfiguration Configuration;
+@using Microsoft.AspNetCore.Http;
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+ 
+ <!-- CLIENT SIDE VALIDATION-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js" integrity="sha512-nO7wgHUoWPYGCNriyGzcFwPSF+bPDOR+NvtOYy2wMcWkrnCNPKBcFEkU80XIN14UVja0Gdnff9EmydyLlOL7mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </script>
+  
+    </head>
+    <body>
+        
+<nav class="navbar navbar-dark bg-dark" >
+    <div class="navbar-brand" >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Vanamo_Logo.png" width="40px" height="40px"/>
+<a class="navbar-brand" href="/Gift/GetGiftItems">Home</a>
+    <a class="navbar-brand" href="/Gift/Create">Create</a>
+    </div>
+    <div class="navbar-toggler">
+        @if (!SignInManager.IsSignedIn(User)){
+<a class="navbar-brand" href="/Account/Login"  >Login</a>
+<a class="navbar-brand"  href="/Account/CreateUser">Register</a>
+        }else{
+            <a class="navbar-brand" href="/Cart/GetCartDetails">Cart</a>
+            <a class="navbar-brand" href="/Order/GetOrder">Order</a>
+            <a class="navbar-brand" href="/Account/LogoutUser">Logout</a>
+            <label class="navbar-brand">@User.Identity.Name</label>
+        }
+        @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))||(!SignInManager.IsSignedIn(User)))
+        {
+            <a class="navbar-brand" href="/Admin/CreateRole">Create Role</a>
+        }
+    </div>
+    
+    
+</nav>
+<div>
+    @RenderBody()
+</div>
+    </body>
+</html>

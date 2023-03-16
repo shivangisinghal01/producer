@@ -1,0 +1,44 @@
+@model DetailViewModel
+    @inject SignInManager<IdentityUser> SignInManager
+                     <form method="post">
+<div class="row" >
+  
+    @{ var photoPath = "~/images/" + (Model.giftItem.ExistingPhoto ?? "noimage"); 
+        
+        <div class="col-sm-3">
+           
+       <div class="card mb-3 shadow-sm">
+        <img src="@photoPath" asp-append-version="true" class="card-image-top" style="height: 200px; width: 100%; display: block; "/>
+       <div class="card-body">
+        
+        <h1 class="card-title">@Model.giftItem.Name</h1>
+        <h2 class="card-text">@Model.giftItem.giftItemDetails.Manufacturer</h2>
+        <h2 class="card-text">@Model.giftItem.giftItemDetails.SalePrice</h2>
+
+            @if(Model.giftItem.InStock){
+ <button  type="submit" class="btn-normal card-text" asp-action='AddToCart'
+        asp-controller='Gift' asp-route-id=@Model.giftItem.Id 
+        asp-route-quantity=@Model.Quantity>Add TO Cart</button>
+        <div class="card-text">
+           <button  type="submit"  class="btn-normal" asp-action='AddQuantity'
+        asp-controller='Gift' asp-route-id=@Model.giftItem.Id asp-route-quantity=@Model.Quantity  >+</button>
+        <label>Quantity</label>
+        <button  type="submit" class="btn-normal" asp-action='DeductQuantity'
+        asp-controller='Gift' asp-route-id=@Model.giftItem.Id  >-</button>
+        
+        </div>
+        <label>Total Quantity : @Model.Quantity</label>
+            }
+       
+       
+
+        </div> 
+        </div>
+        </div>
+        
+    }
+
+</div>
+</form>
+
+
