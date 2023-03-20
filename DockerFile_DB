@@ -5,4 +5,4 @@ ENV ACCEPT_EULA=Y
 EXPOSE 1433
 USER root
 RUN chmod -R 777 /opt
-RUN (/opt/mssql/bin/sqlservr --accept-eula & ) | grep -q "Service Broker manager has started" &&  /opt/mssql-tools/bin/sqlcmd -S127.0.0.1 -Usa -PShiv@angi1Sing
+RUN /opt/mssql/bin/sqlservr
