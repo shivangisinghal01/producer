@@ -23,7 +23,7 @@ COPY . .
 WORKDIR "/src/."
 RUN dotnet build "Producer.csproj" -c Release -o /app/build
 RUN dotnet ef migrations add MigrationDocker
-RUN dotnet ef database update --connection "Server=172.30.76.71\\mysql,1433;Database=Producer;User=sa;password=Shiv@angi1Sing;Persist Security info=True;TrustServerCertificate=True;"
+RUN dotnet ef database update --connection "Server=mysql;Database=Producer;User=sa;password=Shiv@angi1Sing;"
 FROM build AS publish
 RUN dotnet publish "Producer.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
