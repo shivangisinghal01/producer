@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/mssql/rhel/server:2022-latest
 ENV MSSQL_SA_PASSWORD=Shiv@angi1Sing
 ENV ACCEPT_EULA=Y
 EXPOSE 1433
+USER root
 RUN chmod -R 777 /opt
 USER root
 RUN /opt/mssql/bin/sqlservr -u sa -p Shiv@angi1Sing
-USER root
