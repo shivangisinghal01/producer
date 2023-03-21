@@ -5,5 +5,3 @@ ENV ACCEPT_EULA=Y
 EXPOSE 1433
 USER root
 RUN chmod -R 777 /opt
-USER mssql
-RUN /opt/mssql/bin/sqlservr
